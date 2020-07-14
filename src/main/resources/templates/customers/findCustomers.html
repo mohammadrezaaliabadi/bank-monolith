@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'beers')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container my-2">
+    <div class="row">
+        <div class="col-sm my-2 my-lg-0">
+            <a class="btn btn-primary" href="/customers/new">Add Customer</a>
+        </div>
+        <form th:action="@{/customers/find}" method="get" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search by last name" aria-label="Search" name="lastName">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+<table>
+    <thead class="table">
+    <tr class="thead-dark">
+        <th scope="col"> FirstName </th>
+        <th scope="col"> LastName </th>
+        <th scope="col"> Address </th>
+        <th scope="col"> National number </th>
+        <th scope="col"> Phone Number </th>
+        <th scope="col"> Edit </th>
+        <th scope="col"> Details </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${customers}">
+        <td><span th:text="${customer.firstName}"> FirstName </span></td>
+        <td><span th:text="${customer.lastName}"> LastName </span></td>
+        <td><span th:text="${customer.address}"> Address </span></td>
+        <td><span th:text="${customer.nationalNumber}"> NationalNumber </span></td>
+        <td><span th:text="${customer.phoneNumber}"> PhoneNumber </span></td>
+        <td><a th:href="@{{id}/edit(id=${customer.id})}" class="btn btn-secondary"> Edit</a></td>
+        <td><a th:href="@{{id}(id=${customer.id})}" class="btn btn-secondary"> Details</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

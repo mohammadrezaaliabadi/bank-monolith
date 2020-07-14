@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'customers')}">
+
+<body>
+
+
+<h2>Customer Information</h2>
+
+
+<table class="table table-striped" th:object="${customer}">
+    <tr>
+        <th>First Name</th>
+        <td><b th:text="*{firstName}"></b></td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td th:text="*{lastName}"/>
+        </td>
+    </tr>
+    <tr>
+        <th>National Number</th>
+        <td th:text="*{nationalNumber}"/>
+        </td>
+    </tr>
+    <tr>
+        <th>Phone Number</th>
+        <td th:text="*{phoneNumber}"/>
+        </td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td th:text="*{address}"/>
+        </td>
+    </tr>
+</table>
+
+<a th:href="@{{id}/edit(id=${customer.id})}" class="btn btn-default">Edit
+    Beer</a>
+<form th:action="@{{id}/delete(id=${customer.id})}" method="post">
+    <button type="submit" class="btn btn-danger">
+        Delete
+    </button>
+</form>
+<br/>
+<br/>
+<br/>
+<h2>Customers</h2>
+
+</body>
+</html>
