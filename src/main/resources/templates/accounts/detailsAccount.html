@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'customers')}">
+
+<body>
+
+
+<h2>Customer Information</h2>
+
+
+<table class="table table-striped" th:object="${account}">
+    <tr>
+        <th>Account Number</th>
+        <td><b th:text="*{accountNumber}"></b></td>
+    </tr>
+    <tr>
+        <th>Account Type</th>
+        <td th:text="*{accountType}"/>
+        </td>
+    </tr>
+    <tr>
+        <th>Balance</th>
+        <td th:text="*{balance}"/>
+        </td>
+    </tr>
+</table>
+
+<a th:href="@{{id}/edit(id=${account.id})}" class="btn btn-default">Edit
+    Account</a>
+<form th:action="@{{id}/delete(id=${account.id})}" method="post">
+    <button type="submit" class="btn btn-danger">
+        Delete
+    </button>
+</form>
+<br/>
+<br/>
+<br/>
+<!--<div class="container">-->
+<!--    <h2>Accounts</h2>-->
+<!--    <div class="container my-2">-->
+<!--        <div class="row">-->
+<!--            <form th:action="@{/accounts/{customerId}/new(customerId=${customerId})}" method="get" class="col-sm my-2 my-lg-0">-->
+<!--                <button type="submit" class="btn btn-danger">-->
+<!--                    Add Account-->
+<!--                </button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="d-flex justify-content-center">-->
+<!--        <table>-->
+<!--            <thead class="table table-striped text-center">-->
+<!--            <tr class="thead-dark">-->
+<!--                <th scope="col"> Account Number </th>-->
+<!--                <th scope="col"> Account Type</th>-->
+<!--                <th scope="col"> Balance </th>-->
+<!--                <th scope="col"> More </th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="account : ${customer.getAccounts()}">-->
+<!--                <td><span th:text="${account.accountNumber}"> Account Number </span></td>-->
+<!--                <td><span th:text="${account.accountType}"> Account Type </span></td>-->
+<!--                <td><span th:text="${account.balance}"> Balance </span></td>-->
+<!--                <td><a th:href="@{{id}(id=${account.id})}" class="btn btn-secondary"> More</a></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+</body>
+</html>

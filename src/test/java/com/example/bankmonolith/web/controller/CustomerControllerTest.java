@@ -1,6 +1,5 @@
 package com.example.bankmonolith.web.controller;
 
-import com.example.bankmonolith.domain.Customer;
 import com.example.bankmonolith.service.CustomerService;
 import com.example.bankmonolith.web.model.CustomerDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +9,6 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -22,7 +20,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class CustomerControllerTest {
@@ -81,7 +78,7 @@ class CustomerControllerTest {
         when(customerService.findById(uuid)).thenReturn(CustomerDto.builder().id(uuid).build());
         mockMvc.perform(get("/customers/"+uuid+"/edit"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("customers/createOrUpdateCustomer"))
+                .andExpect(view().name("customers/createCustomer"))
                 .andExpect(model().attributeExists("customer"));
     }
 

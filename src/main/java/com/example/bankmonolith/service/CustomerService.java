@@ -1,12 +1,14 @@
 package com.example.bankmonolith.service;
 
+import com.example.bankmonolith.domain.Account;
 import com.example.bankmonolith.domain.Customer;
+import com.example.bankmonolith.web.model.AccountDto;
 import com.example.bankmonolith.web.model.CustomerDto;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public interface CustomerService {

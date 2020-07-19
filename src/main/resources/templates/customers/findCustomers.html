@@ -16,29 +16,30 @@
         </form>
     </div>
 </div>
-<table>
-    <thead class="table">
-    <tr class="thead-dark">
-        <th scope="col"> FirstName </th>
-        <th scope="col"> LastName </th>
-        <th scope="col"> Address </th>
-        <th scope="col"> National number </th>
-        <th scope="col"> Phone Number </th>
-        <th scope="col"> Edit </th>
-        <th scope="col"> Details </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="customer : ${customers}">
-        <td><span th:text="${customer.firstName}"> FirstName </span></td>
-        <td><span th:text="${customer.lastName}"> LastName </span></td>
-        <td><span th:text="${customer.address}"> Address </span></td>
-        <td><span th:text="${customer.nationalNumber}"> NationalNumber </span></td>
-        <td><span th:text="${customer.phoneNumber}"> PhoneNumber </span></td>
-        <td><a th:href="@{{id}/edit(id=${customer.id})}" class="btn btn-secondary"> Edit</a></td>
-        <td><a th:href="@{{id}(id=${customer.id})}" class="btn btn-secondary"> Details</a></td>
-    </tr>
-    </tbody>
-</table>
+<div class="d-flex justify-content-center">
+    <table>
+        <thead class="table table-striped">
+        <tr class="thead-dark">
+            <th scope="col"> FirstName </th>
+            <th scope="col"> LastName </th>
+            <th scope="col"> Address </th>
+            <th scope="col"> National number </th>
+            <th scope="col"> Phone Number </th>
+            <th scope="col"> Details </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}">
+            <td><span th:text="${customer.firstName}"> FirstName </span></td>
+            <td><span th:text="${customer.lastName}"> LastName </span></td>
+            <td><span th:text="${customer.address}"> Address </span></td>
+            <td><span th:text="${customer.nationalNumber}"> NationalNumber </span></td>
+            <td><span th:text="${customer.phoneNumber}"> PhoneNumber </span></td>
+            <td><a th:href="@{{id}(id=${customer.id})}" class="btn btn-secondary"> More </a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>

@@ -46,8 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(UUID id) throws ChangeSetPersister.NotFoundException {
-        Customer customer = customerRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
-        customerRepository.delete(customer);
+        customerRepository.deleteById(id);
     }
 
     @Override
@@ -63,6 +62,5 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerDto> findByLastName(String lastName) {
         return customerRepository.findCustomersByLastNameStartsWith(lastName,PageRequest.of(0,10, Sort.Direction.ASC,"lastName")).stream().map(customer -> customerMapper.customerToCustomerDto(customer)).collect(Collectors.toList());
     }
-
 
 }

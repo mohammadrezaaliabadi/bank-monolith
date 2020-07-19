@@ -37,7 +37,7 @@
 </table>
 
 <a th:href="@{{id}/edit(id=${customer.id})}" class="btn btn-default">Edit
-    Beer</a>
+    Customer</a>
 <form th:action="@{{id}/delete(id=${customer.id})}" method="post">
     <button type="submit" class="btn btn-danger">
         Delete
@@ -46,7 +46,37 @@
 <br/>
 <br/>
 <br/>
-<h2>Customers</h2>
-
+<div class="container">
+    <h2>Accounts</h2>
+    <div class="container my-2">
+        <div class="row">
+            <form th:action="@{/accounts/{customerId}/new(customerId=${customerId})}" method="get" class="col-sm my-2 my-lg-0">
+                <button type="submit" class="btn btn-danger">
+                    Add Account
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <table>
+            <thead class="table table-striped text-center">
+            <tr class="thead-dark">
+                <th scope="col"> Account Number </th>
+                <th scope="col"> Account Type</th>
+                <th scope="col"> Balance </th>
+                <th scope="col"> More </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="account : ${customer.getAccounts()}">
+                <td><span th:text="${account.accountNumber}"> Account Number </span></td>
+                <td><span th:text="${account.accountType}"> Account Type </span></td>
+                <td><span th:text="${account.balance}"> Balance </span></td>
+                <td><a th:href="@{../accounts/{id}/(id=${account.id})}" class="btn btn-secondary"> More</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

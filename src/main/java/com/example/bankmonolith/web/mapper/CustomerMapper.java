@@ -9,7 +9,6 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(uses = DateMapper.class,unmappedTargetPolicy = ReportingPolicy.IGNORE,componentModel = "spring")
 public interface CustomerMapper {
-    @Mapping(target = "version",ignore = true)
     CustomerDto customerToCustomerDto(Customer customer);
     Customer customerDtoToCustomer(CustomerDto customerDto);
 }

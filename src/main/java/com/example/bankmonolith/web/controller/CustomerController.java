@@ -22,7 +22,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = {"/all"},method = RequestMethod.GET)
+    @RequestMapping(value = {"/all",""},method = RequestMethod.GET)
     public String findCustomers(Model model){
         model.addAttribute("customers",customerService.findAll());
         return "customers/findCustomers";
@@ -44,11 +44,13 @@ public class CustomerController {
     @GetMapping("/new")
     public String initCreationForm(Model model){
         model.addAttribute("customer", CustomerDto.builder().build());
-        model.addAttribute("new", "Create Customer");
         return "customers/createCustomer";
     }
     @PostMapping("/new")
-    public String processCreationForm(CustomerDto customerDto){
+    public String processCreationForm(CustomerDto customerDto,BindingResult result){
+        if (result.hasErrors()){
+            return "customers/createCustomer";
+        }
         CustomerDto save = customerService.saveCustomer(customerDto);
         return "redirect:/customers/" + save.getId();
     }
@@ -71,7 +73,7 @@ public class CustomerController {
     @PostMapping("/{customerId}/delete")
     public String customerDelete(@PathVariable UUID customerId) throws ChangeSetPersister.NotFoundException {
         customerService.deleteCustomer(customerId);
-        return "redirect:/customers/find";
+        return "redirect:/customers/all";
     }
 
 }
