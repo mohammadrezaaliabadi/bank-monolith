@@ -29,5 +29,10 @@ public class Transaction extends BaseEntity {
                        String transactionNumber, int transactionType, BigDecimal totalBalance,
                        Account accountFrom, Account accountTo) {
         super(id, version, createdDate, lastModifiedDate);
+        this.transactionNumber = transactionNumber;
+        this.transactionType = transactionType;
+        this.totalBalance = totalBalance;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
     }
 }

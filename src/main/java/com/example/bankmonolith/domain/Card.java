@@ -22,6 +22,11 @@ public class Card extends BaseEntity {
                 String cardNumber, int ccv, String password, int validityTime,
                 Account account) {
         super(id, version, createdDate, lastModifiedDate);
+        this.cardNumber = cardNumber;
+        this.ccv = ccv;
+        this.password = password;
+        this.validityTime = validityTime;
+        this.account = account;
     }
 
 }
