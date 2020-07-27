@@ -74,7 +74,4 @@ public class AccountController {
         accountService.deleteAccount(accountId);
         return "redirect:/";
     }
-
-
-
 }

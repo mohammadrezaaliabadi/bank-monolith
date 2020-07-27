@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'beers')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Accounts</title>
+</head>
+<body>
+<div class="container my-2">
+    <div class="row">
+        <form th:action="@{/cards/find}" method="get" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search by card number" aria-label="Search" name="cardNumber">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+<div class="d-flex justify-content-center">
+    <table>
+        <thead class="table table-striped text-center">
+        <tr class="thead-dark">
+            <th scope="col"> Card Number </th>
+            <th scope="col"> Cvv </th>
+            <th scope="col"> Validity Time </th>
+            <th scope="col"> Password </th>
+            <th scope="col"> More </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="card : ${cards}">
+            <td><span th:text="${card.cardNumber}"> Account Number </span></td>
+            <td><span th:text="${card.ccv}"> Account Type </span></td>
+            <td><span th:text="${card.validityTime}"> Validity Time </span></td>
+            <td><span th:text="${card.password}"> Password </span></td>
+            <td><a th:href="@{{id}(id=${card.id})}" class="btn btn-secondary"> More </a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

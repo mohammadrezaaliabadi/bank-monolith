@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'customers')}">
+
+<body>
+
+
+<h2>Account Information</h2>
+
+
+<table class="table table-striped" th:object="${card}">
+    <tr>
+        <th>Card Number</th>
+        <td><b th:text="*{cardNumber}"></b></td>
+    </tr>
+    <tr>
+        <th> Cvv</th>
+        <td th:text="*{ccv}"/>
+        </td>
+    </tr>
+    <tr>
+        <th>Validity Time</th>
+        </td>
+    </tr>
+    <tr>
+        <th>Validity Time</th>
+        <td th:text="*{validityTime}"/>
+        </td>
+    </tr>
+</table>
+
+<a th:href="@{{id}/edit(id=${card.id})}" class="btn btn-default">Edit
+    Account</a>
+<form th:action="@{{id}/delete(id=${card.id})}" method="post">
+    <button type="submit" class="btn btn-danger">
+        Delete
+    </button>
+</form>
+<br/>
+<br/>
+<br/>
+</div>
+</body>
+</html>

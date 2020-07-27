@@ -2,9 +2,11 @@ package com.example.bankmonolith.service;
 
 import com.example.bankmonolith.domain.Account;
 import com.example.bankmonolith.domain.Customer;
+import com.example.bankmonolith.domain.Transaction;
 import com.example.bankmonolith.repository.AccountRepository;
 import com.example.bankmonolith.repository.CustomerRepository;
 import com.example.bankmonolith.web.mapper.AccountMapper;
+import com.example.bankmonolith.web.mapper.TransactionMapper;
 import com.example.bankmonolith.web.model.AccountDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -24,6 +26,8 @@ public class AccountServiceImpl implements AccountService {
     private CustomerRepository customerRepository;
     @Autowired
     AccountMapper accountMapper;
+    @Autowired
+    public TransactionMapper transactionMapper;
 
     @Override
     public AccountDto saveAccount(UUID customerId, AccountDto accountDto) throws ChangeSetPersister.NotFoundException {
@@ -35,7 +39,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto findById(UUID id) throws ChangeSetPersister.NotFoundException {
-        return accountMapper.accountToAccountDto(accountRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new));
+        System.out.println(id);
+        Account account = accountRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
+        AccountDto accountDto = accountMapper.accountToAccountDto(account);
+        System.out.println(account.getTransactionsFrom());
+        accountDto.setTransactionsFrom(account.getTransactionsFrom().stream().map(transactionMapper::transactionToTransactionDto).collect(Collectors.toSet()));
+        accountDto.setTransactionsTo(account.getTransactionsTo().stream().map(transactionMapper::transactionToTransactionDto).collect(Collectors.toSet()));
+
+        return accountDto;
     }
 
     @Override

@@ -51,7 +51,6 @@ public class AppLoader implements CommandLineRunner {
 
         Card card = cardRepository.save(Card.builder().cardNumber("21321213213213").validityTime(1112).password("1234122").ccv(321).account(account).build());
 
-
         Customer customer2 = customerRepository.save(Customer.builder().
                 firstName("ALi").
                 lastName("Ahmadi").
@@ -67,11 +66,8 @@ public class AppLoader implements CommandLineRunner {
         Card card2 = cardRepository.save(Card.builder().cardNumber("423423424234234").validityTime(134234234).password("1232131").ccv(231).account(account2).build());
 
 
-        Transaction transaction = Transaction.builder().transactionNumber("123213").totalBalance(new BigDecimal(1233)).accountFrom(account).accountTo(account2).build();
-        //Transaction to = Transaction.builder().transactionNumber("123213").totalBalance(new BigDecimal(-1233)).build();
+        Transaction transaction = Transaction.builder().transactionNumber("123213").totalBalance(new BigDecimal(1233)).accountFrom(account).build();
         Transaction save = transactionRepository.save(transaction);
-        accountRepository.findById(account.getId()).orElseThrow().getTransactionsFrom().forEach(transaction1 -> System.out.println(transaction1.getTotalBalance()));
-
 
     }
 }

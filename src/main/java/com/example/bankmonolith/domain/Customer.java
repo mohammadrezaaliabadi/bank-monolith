@@ -24,7 +24,7 @@ public class Customer extends BaseEntity {
     private String phoneNumber;
     private String address;
     @Fetch(FetchMode.JOIN)
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
 
     @Builder
