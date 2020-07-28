@@ -17,7 +17,6 @@ import java.util.UUID;
 
 @RequestMapping("/customers")
 @Controller
-@RequiredArgsConstructor
 public class CustomerController {
     @Autowired
     private CustomerService customerService;

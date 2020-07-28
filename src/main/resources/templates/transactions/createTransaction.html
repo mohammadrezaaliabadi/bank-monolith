@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'customers')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Customer or Update Customer</title>
+</head>
+<body>
+<form th:object="${transaction}" class="form-horizontal" id="add-customer-form" method="post">
+    <input type="hidden" th:field="*{id}" />
+        <input th:replace="~{fragments/inputField :: input ('Transaction Number', 'transactionNumber', 'text')}" />
+    <input th:replace="~{fragments/inputField :: input ('Transaction Type', 'transactionType', 'text')}" />
+    <input th:replace="~{fragments/inputField :: input ('Balance', 'totalBalance', 'text')}" />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</body>
+</html>

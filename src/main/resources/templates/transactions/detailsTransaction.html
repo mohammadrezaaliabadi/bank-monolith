@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'customers')}">
+
+<body>
+
+
+<h2>Account Information</h2>
+
+
+<table class="table table-striped" th:object="${transaction}">
+    <tr>
+        <th>Transaction Number</th>
+        <td><b th:text="*{transactionNumber}"></b></td>
+    </tr>
+    <tr>
+        <th>Transaction Type</th>
+        <td th:text="*{transactionType}"/>
+        </td>
+    </tr>
+    <tr>
+        <th>Balance</th>
+        <td th:text="*{totalBalance}"/>
+        </td>
+    </tr>
+</table>
+
+<a th:href="@{{id}/edit(id=${transaction.id})}" class="btn btn-default">Edit
+    Account</a>
+<form th:action="@{{id}/delete(id=${transaction.id})}" method="post">
+    <button type="submit" class="btn btn-danger">
+        Delete
+    </button>
+</form>
+</body>
+</html>
