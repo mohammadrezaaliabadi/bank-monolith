@@ -10,6 +10,7 @@ import com.example.bankmonolith.web.mapper.CardMapper;
 import com.example.bankmonolith.web.mapper.TransactionMapper;
 import com.example.bankmonolith.web.model.AccountCardInfo;
 import com.example.bankmonolith.web.model.TransactionDto;
+import com.example.bankmonolith.web.model.TransformInfo;
 import javassist.NotFoundException;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +25,18 @@ public class TransformServiceImpl implements TransformService {
     @Autowired
     private TransactionRepository transactionRepository;
     @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
     private CardRepository cardRepository;
-    @Autowired
-    private CardMapper cardMapper;
-    @Autowired
-    private TransactionMapper transactionMapper;
     @Override
     public AccountCardInfo getAccountCardInfo(AccountCardInfo accountCardInfo) throws ChangeSetPersister.NotFoundException {
         Card fromCard = cardRepository.findByCardNumber(accountCardInfo.getCardFrom().getCardNumber()).orElseThrow(ChangeSetPersister.NotFoundException::new);
         Card toCard = cardRepository.findByCardNumber(accountCardInfo.getCardToCardNumber()).orElseThrow(ChangeSetPersister.NotFoundException::new);
-        accountCardInfo.setNameFrom(fromCard.getAccount().getCustomer().getFirstName() + " " +  fromCard.getAccount().getCustomer().getFirstName() );
-        accountCardInfo.setNameTo(toCard.getAccount().getCustomer().getFirstName() + " " +  fromCard.getAccount().getCustomer().getFirstName() );
+        accountCardInfo.setNameFrom(fromCard.getAccount().getCustomer().getFirstName() + " " +  fromCard.getAccount().getCustomer().getLastName() );
+        accountCardInfo.setNameTo(toCard.getAccount().getCustomer().getFirstName() + " " +  toCard.getAccount().getCustomer().getLastName() );
         return accountCardInfo;
     }
 
     @Override
-    public TransactionDto saveTransform(AccountCardInfo accountCardInfo) throws ChangeSetPersister.NotFoundException {
+    public TransformInfo saveTransform(AccountCardInfo accountCardInfo) throws ChangeSetPersister.NotFoundException {
         Card fromCard = cardRepository.findByCardNumber(accountCardInfo.getCardFrom().getCardNumber()).orElseThrow(ChangeSetPersister.NotFoundException::new);
         Card toCard = cardRepository.findByCardNumber(accountCardInfo.getCardToCardNumber()).orElseThrow(ChangeSetPersister.NotFoundException::new);
         Account formAccount = fromCard.getAccount();
@@ -51,8 +46,10 @@ public class TransformServiceImpl implements TransformService {
         }
         formAccount.setBalance(formAccount.getBalance().subtract(accountCardInfo.getBalance()));
         toAccount.setBalance(toAccount.getBalance().add(accountCardInfo.getBalance()));
-
-        return transactionMapper.transactionToTransactionDto(transactionRepository.save(Transaction.builder().accountFrom(formAccount).accountTo(toAccount)
-                .transactionNumber(UUID.randomUUID().toString()).totalBalance(accountCardInfo.getBalance()).transactionType(0).build()));
+        Transaction save = transactionRepository.save(Transaction.builder().accountFrom(formAccount).accountTo(toAccount)
+                .transactionNumber(UUID.randomUUID().toString()).totalBalance(accountCardInfo.getBalance()).transactionType(0).build());
+        return TransformInfo.builder().transactionNumber(save.getTransactionNumber())
+                .fromName(formAccount.getCustomer().getFirstName() +" "+ formAccount.getCustomer().getLastName())
+                .toName(toAccount.getCustomer().getFirstName() +" "+ formAccount.getCustomer().getLastName()).balance(accountCardInfo.getBalance()).build();
     }
 }

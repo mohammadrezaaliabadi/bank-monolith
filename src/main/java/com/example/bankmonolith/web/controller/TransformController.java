@@ -19,13 +19,13 @@ public class TransformController {
     @Autowired
     private TransformService service;
 
-    @PostMapping("/cardInfo")
+    @PostMapping("/getInfo")
     public ResponseEntity<AccountCardInfo> getCardInfo(@RequestBody AccountCardInfo accountCardInfo) throws NotFoundException, ChangeSetPersister.NotFoundException {
         return new ResponseEntity(service.getAccountCardInfo(accountCardInfo), HttpStatus.OK);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<TransactionDto> postCardInfo(@RequestBody AccountCardInfo accountCardInfo) throws NotFoundException, ChangeSetPersister.NotFoundException {
+    public ResponseEntity postCardInfo(@RequestBody AccountCardInfo accountCardInfo) throws NotFoundException, ChangeSetPersister.NotFoundException {
         return new ResponseEntity(service.saveTransform(accountCardInfo),HttpStatus.OK);
     }
 }
