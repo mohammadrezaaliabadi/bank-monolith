@@ -25,7 +25,7 @@ public class CardController {
     }
 
     @RequestMapping(value = {"find"},method = RequestMethod.GET)
-    public String findAccounts(@RequestParam("cardNumber")String cardNumber,Model model){
+    public String findAccounts(@RequestParam("cardNumber")String cardNumber,Model model) throws ChangeSetPersister.NotFoundException {
         model.addAttribute("cards",service.findByCardNumber(cardNumber));
         return "cards/findCards";
     }

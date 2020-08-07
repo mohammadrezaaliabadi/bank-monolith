@@ -58,7 +58,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public CardDto findByCardNumber(String cardNumber) {
-        return mapper.cardToCardDto(repository.findByCardNumber(cardNumber));
+    public CardDto findByCardNumber(String cardNumber) throws ChangeSetPersister.NotFoundException {
+        return mapper.cardToCardDto(repository.findByCardNumber(cardNumber).orElseThrow(ChangeSetPersister.NotFoundException::new));
     }
 }

@@ -18,5 +18,5 @@ public interface CardService {
     @Transactional
     void deleteCard(UUID id) throws ChangeSetPersister.NotFoundException;
     List<CardDto> findAll();
-    CardDto findByCardNumber(String cardNumber);
+    CardDto findByCardNumber(String cardNumber) throws ChangeSetPersister.NotFoundException;
 }
